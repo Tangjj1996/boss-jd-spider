@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Job } from './entities/Job';
+import { Job } from './spider/entities/Job';
+import { SpiderService } from './spider/spider.service';
+import { SpiderController } from './spider/spider.controller';
 
 @Module({
   imports: [
@@ -23,7 +23,7 @@ import { Job } from './entities/Job';
       },
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [SpiderController],
+  providers: [SpiderService],
 })
 export class AppModule {}

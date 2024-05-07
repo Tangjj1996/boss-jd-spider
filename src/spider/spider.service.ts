@@ -1,15 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
-import puppeteer from 'puppeteer';
 import { get } from 'lodash';
-import { Job } from './entities/Job';
+import puppeteer from 'puppeteer';
 import { EntityManager } from 'typeorm';
+import { Job } from './entities/Job';
 
 @Injectable()
-export class AppService {
-  getHello(): string {
-    return 'Hello World!';
-  }
-
+export class SpiderService {
   async startSpider() {
     const browser = await puppeteer.launch({
       headless: false,
