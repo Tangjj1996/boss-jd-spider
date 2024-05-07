@@ -1,5 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import puppeteer from 'puppeteer';
+import { get } from 'lodash';
+import { Job } from './entities/Job';
+import { EntityManager } from 'typeorm';
 
 @Injectable()
 export class AppService {
@@ -69,8 +72,19 @@ export class AppService {
         });
 
         allJobs[i].desc = jd;
-        console.log(allJobs[i]);
+
+        const job = new Job();
+        job.name = get(allJobs, [i, 'job', 'name']);
+        job.area = get(allJobs, [i, 'job', 'area']);
+        job.salary = get(allJobs, [i, 'job', 'salary']);
+        job.link = get(allJobs, [i, 'job', 'link']);
+        job.company = get(allJobs, [i, 'job', 'company']);
+        job.desc = get(allJobs, [i, 'job', 'desc']);
+        await this.entityManager.save(Job, job);
       } catch (_e) {}
     }
   }
+
+  @Inject(EntityManager)
+  private entityManager: EntityManager;
 }

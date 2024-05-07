@@ -24,10 +24,16 @@ export class Job {
   salary: string;
 
   @Column({
+    length: 600,
+    comment: '详情页链接',
+  })
+  link: string;
+
+  @Column({
     length: 30,
     comment: '公司名',
   })
-  link: string;
+  company: string;
 
   @Column({
     type: 'text',
